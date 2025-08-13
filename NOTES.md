@@ -185,78 +185,117 @@ Whenever a significant change is made to the project, the assistant will automat
 
 ---
 
-## Standard Prettier and ESLint Rules
+## Modernized Tooling Configuration (August 13, 2025)
 
-Every module must include the following Prettier and ESLint rules as a baseline:
+All modules have been updated to use modern configuration formats:
 
-### Prettier (.prettierrc)
-{
-  "tabWidth": 4,
-  "semi": true,
-  "singleQuote": true,
-  "trailingComma": "all",
-  "bracketSpacing": true,
-  "arrowParens": "always",
-  "endOfLine": "lf",
-  "overrides": [
-    {
-      "files": ["*.json", "*.config.js", "*.config.ts", ".prettierrc"],
-      "options": {
-        "tabWidth": 2
-      }
-    }
-  ]
-}
-
-### ESLint (.eslintrc.json)
-{
-  "root": true,
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:testing-library/react"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["react", "@typescript-eslint", "testing-library", "import"],
-  "rules": {
-    "no-console": "error",
-    "eqeqeq": ["error", "always"],
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "args": "all",
-        "argsIgnorePattern": "^_",
-        "varsIgnorePattern": "^_",
-        "caughtErrorsIgnorePattern": "^_"
-      }
+### Modern Prettier Configuration (prettier.config.js)
+All modules now use `prettier.config.js` instead of `.prettierrc`:
+```javascript
+/** @type {import("prettier").Config} */
+export default {
+    tabWidth: 4,
+    semi: true,
+    singleQuote: true,
+    trailingComma: 'all',
+    bracketSpacing: true,
+    arrowParens: 'always',
+    endOfLine: 'lf',
+    overrides: [
+        {
+            files: ['*.json', '*.config.js', '*.config.ts', 'prettier.config.js'],
+            options: {
+                tabWidth: 2,
+            },
+        },
     ],
-    "react/destructuring-assignment": ["error", "always"],
-    "react/self-closing-comp": "error",
-    "testing-library/no-debugging-utils": "warn",
-    "testing-library/prefer-screen-queries": "error",
-    "import/no-unresolved": "error",
-    "import/no-relative-parent-imports": "error",
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": ["../*"]
-      }
-    ]
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  }
-}
+};
+```
 
-These rules are the starting standard for all modules. If additional rules or overrides are needed for a specific module, document the changes in NOTES.md.
+### Modern ESLint Configuration (eslint.config.js)
+All modules now use `eslint.config.js` with flat config instead of `.eslintrc.json`:
+
+**UI Module (React-specific):**
+```javascript
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import react from 'eslint-plugin-react';
+import testingLibrary from 'eslint-plugin-testing-library';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+    { ignores: ['dist/**/*', 'node_modules/**/*'] },
+    {
+        files: ['**/*.{ts,tsx,js,jsx}'],
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        languageOptions: {
+            ecmaVersion: 2021,
+            globals: { ...globals.browser, ...globals.es2021 },
+            parserOptions: { ecmaFeatures: { jsx: true } },
+        },
+        plugins: { react, 'react-hooks': reactHooks, 'react-refresh': reactRefresh, 'testing-library': testingLibrary },
+        rules: { /* React-specific rules */ },
+        settings: { react: { version: 'detect' } },
+    },
+    { files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'], extends: [testingLibrary.configs['flat/react']] },
+    { files: ['**/vite.config.ts'], rules: { '@typescript-eslint/ban-ts-comment': 'off' } },
+);
+```
+
+**API/Engine Modules (Node.js):**
+```javascript
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+    { ignores: ['dist/**/*', 'node_modules/**/*'] },
+    {
+        files: ['**/*.{ts,js}'],
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        languageOptions: {
+            ecmaVersion: 2020,
+            globals: { ...globals.node, ...globals.es2020 },
+        },
+        rules: {
+            'semi': ['error', 'always'],
+            'quotes': ['error', 'single'],
+            'no-console': 'warn', // 'error' for engine, 'warn' for api
+            'eqeqeq': ['error', 'always'],
+            'no-unused-vars': 'off',
+            '@typescript-eslint/no-unused-vars': ['warn', { /* config */ }],
+        },
+    },
+);
+```
+
+### Updated Dependencies
+All modules now use:
+- `eslint@^9.33.0` (latest)
+- `typescript-eslint@^8.39.1` (unified package)
+- `@eslint/js@^9.33.0` (core configs)
+- `globals@^16.3.0` (environment globals)
+- Modern plugin versions for React modules
+
+### Package.json Scripts
+Updated lint scripts from `eslint . --ext .ts` to `eslint .` (extension detection is automatic in flat config).
+
+### File Cleanup
+- Removed all `.eslintrc.json` files
+- Removed all `.prettierrc` and `.prettierignore` files
+- Removed duplicate empty test files in `test/` directories (tests should be next to source files)
+- Removed unused dependencies: `eslint-plugin-import` from UI module
+- Added missing `vitest` dependency to UI module
+
+### Final Dependency State
+All modules now have clean, minimal dependency sets:
+- **UI Module**: React, TypeScript, Vite, ESLint (with React plugins), Prettier, Vitest, Testing Library
+- **API Module**: Express, TypeScript, ESLint, Prettier, Vitest, Supertest, ts-node
+- **Engine Module**: TypeScript, ESLint, Prettier, Vitest (minimal library setup)
+
+All modules pass their verify scripts with the new configuration.
 
 ---
 
