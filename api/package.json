@@ -28,6 +28,7 @@
     "vitest": "^1.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "sudoku-engine": "file:../engine"
   }
 }

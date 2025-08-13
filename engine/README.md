@@ -45,10 +45,33 @@ This is the shared Sudoku logic module for SudokuApp, written in TypeScript.
 
 - This module has its own CI/CD workflow file (`.github/workflows/ci.yml`). Only Engine checks run when Engine changes are made.
 
+## Types & Interfaces
+
+The engine module provides comprehensive TypeScript types and interfaces for Sudoku functionality:
+
+### Core Types (`src/types/types.ts`)
+
+- `SudokuValue`: Union type for valid Sudoku values (1-9 or null)
+- `Grid<T>`: Generic 2D array type for grids
+- `CellGrid`: 2D array of Cell objects
+- `CellDataGrid`: 2D array of CellData objects
+- `CellDataGridGroup`: Array of CellData objects
+
+### Core Interfaces (`src/types/interfaces.ts`)
+
+- `CellValue`: Contains a Sudoku value
+- `CellLocation`: Contains row, col, and location string
+- `CellData`: Combines location and value information
+- `Cell`: Extends CellData with notes and editability
+- `ValidationResult`: Contains validation status and error locations
+
+These types enable type-safe Sudoku operations across the entire application.
+
 ## File Structure & Naming
 
 - Test files are placed next to their related source files in src.
 - The src/test folder is only for test setup/config files and type definitions.
+- Type definitions are organized in `src/types/` with separate files for types and interfaces.
 
 ## Documentation Policy
 

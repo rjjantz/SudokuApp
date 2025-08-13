@@ -1,7 +1,7 @@
 {
   "name": "sudoku-engine",
   "version": "0.1.0",
-  "main": "src/sudoku.ts",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "lint": "eslint .",
