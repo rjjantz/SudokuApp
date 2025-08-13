@@ -1,0 +1,24 @@
+# Ignore build output
+/dist/
+/build/
+
+# Ignore node modules
+/node_modules/
+
+# Ignore coverage
+/coverage/
+
+# Ignore lock files
+package-lock.json
+yarn.lock
+
+# Ignore API and engine folders
+../api/
+../engine/
+
+# Ignore test snapshots
+__snapshots__/
+
+# Ignore static assets
+public/
+assets/

@@ -1,0 +1,56 @@
+# Node modules
+**/node_modules/
+
+# Build output
+**/dist/
+**/build/
+
+# Logs
+**/*.log
+
+# IDE files
+.vscode/
+.idea/
+
+# TypeScript
+**/*.tsbuildinfo
+
+# Environment files
+**/.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage
+**/coverage/
+
+# Misc
+**/.eslintcache
+
+# Ignore lock files if desired
+# Uncomment if you want to ignore lock files
+**/package-lock.json
+# **/yarn.lock
+
+# Ignore generated files
+**/*.generated.*
+
+# Ignore test snapshots
+**/__snapshots__/
+
+# Ignore API runtime files
+api/*.sqlite
+api/*.db
+
+# Ignore UI static assets
+ui/public/
+
+# Ignore engine build artifacts
+engine/dist/
+
+# MongoDB database files
+api/*.mongodb
+api/*.mongo
+api/*.bak
+api/dump/

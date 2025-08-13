@@ -1,0 +1,36 @@
+{
+  "name": "sudoku-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "verify": "npm run verify:ui && npm run verify:api && npm run verify:engine",
+    "verify:ui": "cd ui && npm run verify",
+    "verify:api": "cd api && npm run verify",
+    "verify:engine": "cd engine && npm run verify",
+    "lint": "npm run lint:ui && npm run lint:api && npm run lint:engine",
+    "lint:ui": "cd ui && npm run lint",
+    "lint:api": "cd api && npm run lint",
+    "lint:engine": "cd engine && npm run lint",
+    "format": "npm run format:ui && npm run format:api && npm run format:engine",
+    "format:ui": "cd ui && npm run format",
+    "format:api": "cd api && npm run format",
+    "format:engine": "cd engine && npm run format",
+    "build": "npm run build:ui && npm run build:api && npm run build:engine",
+    "build:ui": "cd ui && npm run build || echo 'No build script in ui'",
+    "build:api": "cd api && npm run build || echo 'No build script in api'",
+    "build:engine": "cd engine && npm run build || echo 'No build script in engine'",
+    "check-configs": "npm run check-configs:ui && npm run check-configs:api && npm run check-configs:engine",
+    "check-configs:ui": "cd ui && npm run check-configs || echo 'No check-configs script in ui'",
+    "check-configs:api": "cd api && npm run check-configs || echo 'No check-configs script in api'",
+    "check-configs:engine": "cd engine && npm run check-configs || echo 'No check-configs script in engine'"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "eslint": "^9.33.0",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.6.2",
+    "vitest": "^3.2.4"
+  }
+}
