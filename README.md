@@ -23,7 +23,14 @@ SudokuApp is a monorepo for a Sudoku application, containing:
 ---
 
 ## Detailed Description
-SudokuApp is a modular monorepo designed for scalable Sudoku development. It includes a modern React UI, a Node.js API, and a shared engine for Sudoku logic. Each module is independently developed, tested, and deployed, with strict standards for code quality, documentation, and automation. All documentation and scripts are kept up to date automatically.
+SudokuApp is a modular monorepo designed for scalable Sudoku development. It includes a modern React UI, a Node.js API with Express server, and a shared TypeScript engine for Sudoku logic and types. The API provides REST endpoints for retrieving Sudoku puzzles of varying difficulties, while the engine module contains comprehensive TypeScript interfaces, types, and enumerations. Each module is independently developed, tested, and deployed, with strict standards for code quality, documentation, and automation.
+
+### Current Features
+- **API Server**: Express.js REST API with endpoints for puzzle retrieval
+- **Grid Service**: Service layer for managing and serving Sudoku puzzles by difficulty
+- **Puzzle Database**: Curated collections of validated Sudoku puzzles (Easy, Medium, Hard)
+- **Type System**: Comprehensive TypeScript types and interfaces for Sudoku operations
+- **Difficulty System**: Six difficulty levels (Easy, Medium, Hard, Expert, Master, Extreme)
 
 ## How to Setup the Monorepo
 1. Clone the repository.
