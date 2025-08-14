@@ -1,6 +1,3 @@
-
-
-
 # SudokuApp Monorepo
 
 SudokuApp is a monorepo for a Sudoku application, containing:

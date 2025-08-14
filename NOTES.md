@@ -302,6 +302,23 @@ All modules pass their verify scripts with the new configuration.
 
 ---
 
+## Sudoku Difficulty Requirements (August 13, 2025)
+**CRITICAL**: When working with Sudoku grids, difficulty is determined by:
+1. **Number of given values** - NOT empty cells
+2. **Solving techniques required** - specific methods needed to solve
+
+### Difficulty Levels:
+- **Easy**: 36-49 given values, basic techniques (naked/hidden singles only)
+- **Medium**: 32-35 given values, intermediate techniques (locked candidates, naked pairs, pointing pairs/triples)
+- **Hard**: 28-31 given values, advanced techniques (X-Wing, Swordfish, complex elimination)
+- **Expert**: 25-27 given values, expert-level techniques
+- **Master**: 22-24 given values, master-level techniques  
+- **Extreme**: 17-21 given values, extreme techniques requiring deep logical inference
+
+**IMPORTANT**: Always use validated puzzles from established sources (like github.com/attractivechaos/plb, t-dillon/tdoku datasets) rather than creating new grids manually. Manual creation often results in invalid puzzles.
+
+**COMMAND FOR FUTURE TASKS**: Before completing any task, you must always update NOTES.md and all relevant README files to reflect the current state. This is mandatory and non-negotiable.
+
 ## Required Tooling for Every Module
 Every module must include ESLint, Prettier, Vitest, and Jest at minimum, unless otherwise specified. UI modules must also include Storybook. This ensures code quality, formatting consistency, and test coverage across the entire monorepo.
 
