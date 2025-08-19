@@ -123,7 +123,8 @@ describe('API Endpoints', () => {
 
             expect(response.body).toMatchObject({
                 error: 'Invalid difficulty level',
-                message: 'Difficulty must be one of: easy, medium, hard',
+                message:
+                    'Difficulty must be one of: easy, medium, hard, expert, master, extreme',
                 received: 'invalid',
             });
         });
